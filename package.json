@@ -29,7 +29,10 @@
     "url": "git+https://github.com/MrCheater/redux-cookies.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "version": "1.0.1"
+  "version": "1.0.1",
+  "devDependencies": {
+    "jest": "^20.0.4"
+  }
 }
