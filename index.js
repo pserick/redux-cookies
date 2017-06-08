@@ -24,10 +24,12 @@ module.exports = {
             options : options
         };
     },
-    getDateInMiliseconds: function getDateInMiliseconds(dateObj) {
-        if (typeof dateObj !== 'object' && (typeof dateObj !== 'function' || dateObj === null)) {
+    expiration: function expiration(params) {
+        if (typeof params !== 'object' && (typeof params !== 'function' || params === null)) {
             throw new TypeError('Invalid argument');
         }
+
+        var dateNow = new Date();
 
         var availableDates = {
             s: function(multiplier) {return 1000 * multiplier;},
@@ -40,25 +42,19 @@ module.exports = {
 
         var expiration = 0;
 
-        for (k in dateObj) {
-          if (hasOwnProperty.call(dateObj, k)) {
+        for (k in params) {
+          if (hasOwnProperty.call(params, k)) {
               for (j in availableDates) {
                   if (hasOwnProperty.call(availableDates, j)) {
-                      if (k === j && typeof dateObj[k] === "number" && dateObj[k] > 0) {
-                          expiration = expiration + availableDates[k](dateObj[k]);
+                      if (k === j && typeof params[k] === "number" && params[k] > 0) {
+                          expiration = expiration + availableDates[k](params[k]);
                       }
                   }
               }
           }
         }
 
-        return expiration;
-    },
-    cookiesExpiration: function cookiesExpiration(dateObj) {
-        var dateNow = new Date();
-        var expirationDate = new Date(dateNow.getTime() + this.getDateInMiliseconds(dateObj));
-
-        return expirationDate;
+        return new Date(dateNow.getTime() + expiration);
     },
     getCookiesMiddleware : function getCookiesMiddleware(cookies) {
         if(process.env.NODE_ENV === 'development') {

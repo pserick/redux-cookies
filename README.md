@@ -43,14 +43,17 @@ export function alertSomething() {
 ```
 
 #Usage
-`redux-cookies` exposes `cookiesSet`, `cookiesSet` and `cookiesExpire`
+`redux-cookies` exposes `cookiesSet`, `cookiesSet`, `cookiesExpire` and `expiration`
+
+const getExpiration = require('./../index').utils.getExpiration;
 
 `cookiesSet` takes a "cookie name", "cookie value" and an optional "options"  // options like "expires"
 `cookiesGet` takes a "cookie name"
 `cookiesExpire` takes a "cookie name" and an "option"
 
 ```javascript
-import { cookiesSet, cookiesGet, cookiesExpire } from 'redux-cookie';
+import { cookiesSet, cookiesGet, cookiesExpiration, cookiesExpire } from 'redux-cookies';
+import { getExpiration } = require('./../index').utils.getExpiration;
 
 dispatch(cookiesSet('AUTH_TOKEN', '1234abc...', { expires: 3600 })) // Expire in one hour
 
